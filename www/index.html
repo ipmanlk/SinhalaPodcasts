@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Index</title>
+    <!-- css files -->
+    <link rel="stylesheet" href="./css/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="./css/mediaelementplayer.min.css" />
+    <link rel="stylesheet" href="./css/custom.css">
+    <!-- scripts -->
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="./js/mediaelement-and-player.min.js"></script>
+    <script src="./js/sideMenu.js"></script>
+    <script src="cordova.js"></script>
+</head>
+
+<body>
+    <div id="index" data-role="page" data-theme="b">
+
+        <!-- side menu -->
+        <div id="sideMenu" data-role="panel" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                <li data-icon="clock">
+                    <a onclick="getPodcastsOffline();" data-rel="close">Recent Podcasts</a>
+                </li>
+                <li data-icon="bars">
+                    <a onclick="loadSources();" data-rel="close">Channels</a>
+                </li>
+                <li data-icon="info">
+                    <a href="#" onclick="location.replace('about.html');" data-rel="close">About</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- header -->
+        <div id="header" data-role="header" style="overflow:hidden;" data-position="fixed" data-tap-toggle="false">
+            <h1 id="headerTitle">Sinhala Podcasts</h1>
+            <a id="btnMenu" href="#sideMenu" data-icon="bars" data-iconpos="notext" data-role="button">Back</a>
+            <a id="btnBack" onclick="goBack();" style="display: none;" href="#" data-icon="back" data-iconpos="notext" data-role="button"></a>
+
+            <div data-role="navbar">
+                <ul>
+                    <li>
+                        <a id="headerSubTitle" href="#" class="ui-btn-active">Recent Podcasts</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- content -->
+        <div id="content" class="contentCustom" data-role="content">
+
+            <!-- podcast list -->
+            <div id="podcasts">
+                <ul id="podcastList" class="no-padding-margin" data-role="listview" data-inset="true">
+
+                </ul>
+
+                <!-- sources list -->
+                <ul id="sourcesList" style="display:none;" class="no-padding-margin" data-role="listview" data-inset="true">
+
+                </ul>
+            </div>
+
+            <!-- player -->
+            <div id="playerContent" class="playerContent" style="display: none;">
+                <h4 id="playerTitle" class="ui-bar ui-bar-b"> </h4>
+                <div class="ui-body ui-body-b ui-corner-all">
+                    <center>
+                        <img id="playerLogo" src="./img/logo/BinaryPodcast.png" alt="">
+                    </center>
+                </div>
+
+                <div data-role="collapsible" data-theme="b" data-content-theme="b">
+                    <h4><center>Description</center></h4>
+                    <p id="playerPost"></p>
+                </div>
+
+                <button id="btnDownload" class="ui-btn ui-icon-arrow-d ui-btn-icon-left" onclick="downPodcast();">Download</button>
+                <button id="btnPlayerControl" class="ui-btn ui-icon-cloud ui-btn-icon-left" onclick="playPause();">Listen</button>
+                <button id="btnShare" class="ui-btn ui-icon-action ui-btn-icon-left" onclick="sharePodcast();">Share</button>
+
+            </div>
+
+        </div>
+
+        <!-- footer -->
+        <div id="footer" style="display: none;" data-role="footer" style="overflow:hidden;" data-position="fixed" data-tap-toggle="false">
+            <audio id="podcastPlayer" preload="none" class="mejs__player" data-mejsoptions='{"defaultAudioWidth": "100%"}'>
+                <source id="podcastPlayerMp3" src="" type="audio/mp3">
+            </audio>
+        </div>
+
+    </div>
+
+
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
