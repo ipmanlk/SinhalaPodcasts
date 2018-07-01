@@ -8,8 +8,8 @@ var playerState = null;
 var selectedPodcastId;
 
 //location variable
-// 1 = player recent item
-// 2 = player channel item
+// 1 = recent items (home page)
+// 2 = channels page (sources page) / player page (download page)
 var currentPage;
 
 //background mode
@@ -50,6 +50,7 @@ function loadContent(id, file) {
 
 //get podcasts
 function getPodcastsOnline() {
+    currentPage = 1;
     showLoading(true);
     $.ajax({
         type: 'post',
@@ -74,11 +75,23 @@ function getPodcastsOnline() {
 //show podcasts
 function loadPodcasts(response) {
     $('#podcastList').empty();
+
+    //limit for recent podcasts
+    var limit = -1;
+    var counter = 0;
+
+    if (currentPage == 1) {
+        limit = 15;
+    } 
+
     for (item in response) {
+        if (counter == limit) {break;}
         var img = getLogo(response[item].source);
         //dynamically add list items to list view
         $("#podcastList").append('<li><a href="#" onclick="playPodcast(' + item + ');"><img src="' + img + '"><h2>' + response[item].title + '</h2><p> ' + response[item].dateTime + ' </p></a></li>').listview('refresh');
+        counter++;
     }
+
 }
 
 //get img
