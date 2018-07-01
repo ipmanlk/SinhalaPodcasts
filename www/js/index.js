@@ -107,26 +107,24 @@ function playPodcast(id) {
     $('#playerLogo').attr('src', getLogo(podcastData[id].source));
     $('#playerPost').text(podcastData[id].post);
     podcastPlayer.src = podcastData[id].mp3;
-
     selectedPodcastId = id;
 }
 
 //toggle content / player
 function contentVisible(val) {
-
     if (val) {
-        $('#playerContent').fadeOut();
-        $('#footer').fadeOut();
-        $('#podcasts').fadeIn();
-        $('#btnBack').fadeOut();
+        $('#playerContent').hide();
+        $('#footer').hide();
+        $('#btnBack').hide();
         $('#content').attr('class', 'contentCustom');
+        $('#podcasts').fadeIn();
 
     } else {
-        $('#podcasts').fadeOut();
+        $('#podcasts').hide();
+        $('#content').attr('class', 'contentNormal');
         $(window).scrollTop(0);
         $('#btnBack').fadeIn();
         $('#playerContent').fadeIn();
-        $('#content').attr('class', 'contentNormal');
     }
 }
 
@@ -137,6 +135,7 @@ function goBack() {
         playPause();
     }
 
+    //change subtitle suitable for the current page
     switch (currentPage) {
         case 1:
             $('#headerSubTitle').text("Recent Podcasts");
@@ -190,7 +189,7 @@ function loadSources() {
         $("#sourcesList").append('<li><a href="#" onclick="loadSource(' + "'" + sources[item] + "'" + ');"><img src="' + getLogo(sources[item]) + '"><h2>' + sources[item] + '</h2></a></li>').listview('refresh');
     }
 
-    $('#podcastList').fadeOut();
+    $('#podcastList').hide();
     $('#sourcesList').fadeIn();
 }
 
@@ -209,22 +208,20 @@ function loadSource(customSource) {
 
     $('#headerSubTitle').text("Podcasts from " + customSource);
 
-    $('#sourcesList').fadeOut();
+    $('#sourcesList').hide();
     $('#podcastList').fadeIn();
 }
 
 //recent podcasts
 function getPodcastsOffline() {
     currentPage = 1;
-    showLoading(true);
-    $('#sourcesList').fadeOut();
-    $('#podcastList').fadeIn();
+    $('#sourcesList').hide();
     $('#podcastList').empty();
+    $('#podcastList').fadeIn();
     var podcastData = JSON.parse(localStorage.getItem('podcastData'));
     loadPodcasts(podcastData);
     $('#headerSubTitle').text("Recent Podcasts");
     contentVisible(true);
-    showLoading(false);
 }
 
 //loading spinner for events takes time
@@ -272,15 +269,12 @@ function sharePodcast() {
     window.plugins.socialsharing.share(podcastTitle + " @ ", null, null, podcastUrl);
 }
 
-
 //download
 function downPodcast() {
     var podcastData = JSON.parse(localStorage.getItem('podcastData'));
     var podcastMp3 = podcastData[selectedPodcastId].mp3;
     location.replace(podcastMp3);
 }
-
-
 
 // when device is ready
 document.addEventListener("deviceready", onDeviceReady, false);
