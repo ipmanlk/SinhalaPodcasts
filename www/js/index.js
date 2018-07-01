@@ -53,8 +53,7 @@ function getPodcastsOnline() {
     showLoading(true);
     $.ajax({
         type: 'post',
-        //url: 'http://localhost/SinhalaPodcast/server_side/podcastData.php',
-        url: 'https://podcasts.navinda.xyz/podcastData.php',
+        url: 'https://podcasts.navinda.xyz/podcastData.php1',
         dataType: 'json',
         timeout: 60000, //60s
 
@@ -66,7 +65,8 @@ function getPodcastsOnline() {
         },
 
         error: function (obj) {
-
+            alert("Sorry!. Something went wrong. : " + obj.responseText);
+            showLoading(false);
         }
     });
 }
