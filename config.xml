@@ -18,6 +18,8 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <preference name="SplashScreenSpinnerColor" value="white" />
+        <splash src="res/screen/android/splash.png" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
@@ -27,5 +29,6 @@
     <plugin name="cordova-plugin-background-mode" spec="^0.7.2" />
     <plugin name="cordova-plugin-local-notification" spec="^0.9.0-beta.2" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
+    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <engine name="android" spec="^7.0.0" />
 </widget>
