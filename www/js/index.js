@@ -12,9 +12,25 @@ var selectedPodcastId;
 // 2 = player channel item
 var currentPage;
 
-//load media element player
-$(document).ready(function () {
+//background mode
+function backgroundMode() {
+    cordova.plugins.backgroundMode.setDefaults({
+        title: 'Sinhala Podcasts',
+        text: 'Running in the background'
+    });
+    cordova.plugins.backgroundMode.setEnabled(true);
+    cordova.plugins.backgroundMode.overrideBackButton();
+    cordova.plugins.backgroundMode.excludeFromTaskList();
+}
 
+// when device is ready
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+
+    //enable background mode
+    backgroundMode();
+
+    //check local storage
     if (localStorage.getItem('podcastData') === null) {
         getPodcastsOnline();
     } else {
@@ -23,7 +39,7 @@ $(document).ready(function () {
 
     //run background task
     checkUpdates();
-});
+}
 
 //load content
 function loadContent(id, file) {
@@ -244,7 +260,7 @@ function checkUpdates() {
     $.get("https://podcasts.navinda.xyz/checkUpdates.php", function (data, status) {
         var offlineUpdated = podcastData[0].dateTime;
         var onlineData = JSON.parse(data);
-        var notificationTitle =  onlineData[0].title;
+        var notificationTitle = onlineData[0].title;
         var notificationText = 'New podcast from ' + onlineData[0].source;
 
         if (offlineUpdated !== onlineData[0].dateTime) {
@@ -274,23 +290,6 @@ function downPodcast() {
     var podcastData = JSON.parse(localStorage.getItem('podcastData'));
     var podcastMp3 = podcastData[selectedPodcastId].mp3;
     location.replace(podcastMp3);
-}
-
-// when device is ready
-document.addEventListener("deviceready", onDeviceReady, false);
-function onDeviceReady() { 
-    backgroundMode();
-}
-
-//background mode
-function backgroundMode() {
-    cordova.plugins.backgroundMode.setDefaults({
-        title: 'Sinhala Podcasts',
-        text: 'Running in the background'
-    });
-    cordova.plugins.backgroundMode.setEnabled(true);
-    cordova.plugins.backgroundMode.overrideBackButton();
-    cordova.plugins.backgroundMode.excludeFromTaskList();
 }
 
 //check online status
