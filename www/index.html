@@ -24,6 +24,7 @@
         <!-- side menu -->
         <div id="sideMenu" data-role="panel" data-display="overlay" data-theme="b">
             <ul data-role="listview">
+                <li data-role="list-divider">Actions</li>
                 <li data-icon="clock">
                     <a onclick="getPodcastsOffline();" data-rel="close">Recent Podcasts</a>
                 </li>
@@ -33,6 +34,7 @@
                 <li data-icon="recycle">
                     <a href="#" onclick="getPodcastsOnline();" data-rel="close">Refresh</a>
                 </li>
+                <li data-role="list-divider">Information</li>
                 <li data-icon="info">
                     <a href="#" onclick="location.replace('about.html');" data-rel="close">About</a>
                 </li>
@@ -80,7 +82,9 @@
                 </div>
 
                 <div data-role="collapsible" data-theme="b" data-content-theme="b">
-                    <h4><center>Description</center></h4>
+                    <h4>
+                        <center>Description</center>
+                    </h4>
                     <p id="playerPost"></p>
                 </div>
 
