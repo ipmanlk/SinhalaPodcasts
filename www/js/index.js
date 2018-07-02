@@ -7,10 +7,13 @@ var playerState = null;
 //selected podcast id
 var selectedPodcastId;
 
-//location variable
+//to remember previous page
 // 1 = recent items (home page)
-// 2 = channels page (sources page) / player page (download page)
-var currentPage;
+// 2 = channels page (sources list)
+var prevPage;
+
+//check if in player page
+var inPlayer;
 
 //background mode
 function backgroundMode() {
@@ -19,7 +22,7 @@ function backgroundMode() {
         text: 'Running in the background'
     });
     cordova.plugins.backgroundMode.setEnabled(true);
-    cordova.plugins.backgroundMode.overrideBackButton();
+    //cordova.plugins.backgroundMode.overrideBackButton();
     cordova.plugins.backgroundMode.excludeFromTaskList();
 }
 
@@ -50,7 +53,7 @@ function loadContent(id, file) {
 
 //get podcasts
 function getPodcastsOnline() {
-    currentPage = 1;
+    prevPage = 1;
     showLoading(true);
     $.ajax({
         type: 'post',
@@ -80,12 +83,12 @@ function loadPodcasts(response) {
     var limit = -1;
     var counter = 0;
 
-    if (currentPage == 1) {
+    if (prevPage == 1) {
         limit = 15;
-    } 
+    }
 
     for (item in response) {
-        if (counter == limit) {break;}
+        if (counter == limit) { break; }
         var img = getLogo(response[item].source);
         //dynamically add list items to list view
         $("#podcastList").append('<li><a href="#" onclick="playPodcast(' + item + ');"><img src="' + img + '"><h2>' + response[item].title + '</h2><p> ' + response[item].dateTime + ' </p></a></li>').listview('refresh');
@@ -129,6 +132,7 @@ function getLogo(source) {
 
 //play podcast
 function playPodcast(id) {
+    inPlayer = true;
     contentVisible(false);
     var podcastData = JSON.parse(localStorage.getItem('podcastData'));
     $('#playerTitle').text(podcastData[id].title);
@@ -159,13 +163,14 @@ function contentVisible(val) {
 
 //back button
 function goBack() {
+    inPlayer = false;
     //if playing, stop the player
     if (playerState == 'pause') {
         playPause();
     }
 
     //change subtitle suitable for the current page
-    switch (currentPage) {
+    switch (prevPage) {
         case 1:
             $('#headerSubTitle').text("Recent Podcasts");
             break;
@@ -194,7 +199,7 @@ function playPause() {
 
 //load sources
 function loadSources() {
-    currentPage = 2;
+    prevPage = 2;
     contentVisible(true);
     $('#headerSubTitle').text("Channels");
 
@@ -224,6 +229,7 @@ function loadSources() {
 
 //load source
 function loadSource(customSource) {
+    prevPage = 2;
     var podcastData = JSON.parse(localStorage.getItem('podcastData'));
 
     $('#podcastList').empty();
@@ -243,7 +249,7 @@ function loadSource(customSource) {
 
 //recent podcasts
 function getPodcastsOffline() {
-    currentPage = 1;
+    prevPage = 1;
     $('#sourcesList').hide();
     $('#podcastList').empty();
     $('#podcastList').fadeIn();
@@ -317,3 +323,24 @@ function onOffline() {
 function exitApp() {
     navigator.app.exitApp();
 }
+
+//disable back button and apply custom command
+document.addEventListener("backbutton", function (e) {
+    e.preventDefault();
+    //if in player page, go back
+    if (inPlayer) {
+        goBack();
+
+    } else {
+        if (prevPage == 1) {
+            cordova.plugins.backgroundMode.moveToBackground();
+        }
+
+        if (prevPage == 2) {
+            $('#headerSubTitle').text("Channels");
+            $('#podcastList').hide();
+            $('#sourcesList').fadeIn();
+        }
+    }
+
+}, false);
