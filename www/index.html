@@ -6,16 +6,17 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Index</title>
+    
     <!-- css files -->
     <link rel="stylesheet" href="./css/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="./css/mediaelementplayer.min.css" />
     <link rel="stylesheet" href="./css/custom.css">
-    <!-- scripts -->
-    <script src="./js/jquery.min.js"></script>
-    <script src="./js/jquery.mobile-1.4.5.min.js"></script>
-    <script src="./js/mediaelement-and-player.min.js"></script>
-    <script src="./js/sideMenu.js"></script>
+
+    <!-- base scripts (libraries etc.) -->
     <script src="cordova.js"></script>
+    <script src="./js/base/jquery.min.js"></script>
+    <script src="./js/base/jquery.mobile-1.4.5.min.js"></script>
+    <script src="./js/base/mediaelement-and-player.min.js"></script>
 </head>
 
 <body>
@@ -39,8 +40,8 @@
                 </li>
                 <li data-role="list-divider">Other</li>
                 <li data-icon="star">
-                        <a href="#" onclick="location.replace('https://tinyurl.com/ybvgm3xx');" data-rel="close">More Apps</a>
-                    </li>
+                    <a href="#" onclick="location.replace('https://tinyurl.com/ybvgm3xx');" data-rel="close">More Apps</a>
+                </li>
                 <li data-icon="info">
                     <a href="#" onclick="location.replace('about.html');" data-rel="close">About</a>
                 </li>
@@ -111,8 +112,19 @@
 
     </div>
 
-
-    <script src="./js/index.js"></script>
+    <!-- app scripts -->
+    <script src="./js/app/sideMenu.js"></script>
+    <script src="./js/app/backgroundTasks.js"></script>
+    <script src="./js/app/getPodcasts.js"></script>
+    <script src="./js/app/nativeButtons.js"></script>
+    <script src="./js/app/checkOnline.js"></script>
+    <script src="./js/app/podcastPlayerActions.js"></script>
+    <script src="./js/app/navigateActions.js"></script>
+    <script src="./js/app/toggleElements.js"></script>
+    <script src="./js/app/getSources.js"></script>
+    <script src="./js/app/showPodcasts.js"></script>
+    <script src="./js/app/getAssets.js"></script>
+    <script src="./js/app/index.js"></script>
 </body>
 
 </html>
