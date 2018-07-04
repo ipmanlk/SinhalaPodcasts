@@ -18,10 +18,10 @@ function playPodcast(id) {
     inPlayer = true;
     podcastListVisible(false);
     var podcastData = JSON.parse(localStorage.getItem('podcastData'));
-    $('#playerTitle').text(podcastData[id].title);
-    $('#headerSubTitle').text(podcastData[id].source);
+    $('#playerTitle').html(podcastData[id].title);
+    $('#headerSubTitle').html(podcastData[id].source);
     $('#playerLogo').attr('src', getLogo(podcastData[id].source));
-    $('#playerPost').text(podcastData[id].post);
+    $('#playerPost').html(podcastData[id].post);
     podcastPlayer.src = podcastData[id].mp3;
     selectedPodcastId = id;
 }
