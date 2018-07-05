@@ -1,6 +1,9 @@
 //load sources
 function loadSources() {
     prevPage = 2;
+    
+    $("#sourcesList").empty();
+
     podcastListVisible(true);
     $('#headerSubTitle').text("Channels");
 
