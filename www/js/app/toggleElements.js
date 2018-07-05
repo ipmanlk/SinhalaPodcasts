@@ -2,7 +2,6 @@
 function podcastListVisible(val) {
     if (val) {
         $('#playerContent').hide();
-        $('#footer').hide();
         $('#btnBack').hide();
         $('#content').attr('class', 'contentCustom');
         $('#podcasts').fadeIn();

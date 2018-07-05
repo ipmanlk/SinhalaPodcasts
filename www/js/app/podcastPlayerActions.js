@@ -15,6 +15,12 @@ function downPodcast() {
 
 //play podcast
 function playPodcast(id) {
+    
+    //if playing, stop the player
+    if (playerState == 'pause') {
+        playPause();
+    }
+
     inPlayer = true;
     podcastListVisible(false);
     var podcastData = JSON.parse(localStorage.getItem('podcastData'));
@@ -37,6 +43,15 @@ function playPause() {
     } else {
         playerState = 'play';
         podcastPlayer.pause();
+        $('#footer').fadeOut();
         $('#btnPlayerControl').text('Play');
     }
+}
+
+//event listner for podcast player
+podcastPlayer.addEventListener("pause", onPodcastPlayerPause, false);
+
+function onPodcastPlayerPause() {
+    $('#footer').fadeOut();
+    $('#btnPlayerControl').text('Play');
 }
