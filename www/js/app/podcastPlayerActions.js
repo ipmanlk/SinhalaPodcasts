@@ -54,4 +54,5 @@ podcastPlayer.addEventListener("pause", onPodcastPlayerPause, false);
 function onPodcastPlayerPause() {
     $('#footer').fadeOut();
     $('#btnPlayerControl').text('Play');
+    playerState = 'play';
 }
