@@ -48,11 +48,17 @@ function playPause() {
     }
 }
 
-//event listner for podcast player
+//event listners for podcast player
 podcastPlayer.addEventListener("pause", onPodcastPlayerPause, false);
 
 function onPodcastPlayerPause() {
-    $('#footer').fadeOut();
     $('#btnPlayerControl').text('Play');
     playerState = 'play';
+}
+
+podcastPlayer.addEventListener("play", onPodcastPlayerPlay, false);
+
+function onPodcastPlayerPlay() {
+    $('#btnPlayerControl').text('Pause');
+    playerState = 'pause';
 }
