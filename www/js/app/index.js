@@ -21,7 +21,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
 
     //enable background mode
-    backgroundMode();
+    // backgroundMode(); - background mode disabled   
 
     //check local storage
     if (localStorage.getItem('podcastData') === null) {
@@ -53,8 +53,3 @@ function showLoading(val) {
 //         $(id).html(response).enhanceWithin();
 //     });
 // }
-
-
-
-
-
