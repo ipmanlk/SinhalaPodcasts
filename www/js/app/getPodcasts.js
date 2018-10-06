@@ -4,7 +4,7 @@ function getPodcastsOnline() {
     showLoading(true);
     $.ajax({
         type: 'post',
-        url: 'https://podcasts.navinda.xyz/podcastData.php!',
+        url: 'https://podcasts.navinda.xyz/podcastData.php?key=9f2870950',
         dataType: 'json',
         timeout: 60000, //60s
 
